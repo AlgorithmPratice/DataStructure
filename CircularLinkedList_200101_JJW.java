@@ -14,14 +14,13 @@ public class CircularLinkedList<T> extends DoublyLinkedList<T> {
 
     @Override
     public T get(int index) {
-        if (index > super.getSize()-1) {
-            index %= super.getSize();
-        }
+        index = getCircularIndex(index);
         return super.get(index);
     }
 
     /**
      * insert data at last of arrayList
+     * 
      * @param data data you want to insert
      */
     @Override
@@ -33,26 +32,46 @@ public class CircularLinkedList<T> extends DoublyLinkedList<T> {
 
     /**
      * insert data at a specific index of arrayList
-     * @param data data you want to insert
+     * 
+     * @param data  data you want to insert
      * @param index the position you want to insert
      */
     @Override
     public void add(T data, int index) {
-        super.add(data, index);
+        index = getCircularIndex(index);
+
         if (index == 0) {
+            super.add(data, index);
             super.getFirst().setPrevNode(super.getLast());
+            super.getLast().setNextNode(super.getFirst());
+        } else if (index == super.getSize()) {
+            this.add(data);
+        } else {
+            super.add(data, index);
         }
     }
 
     @Override
     public T remove(int index) {
+        index = getCircularIndex(index);
+
         T tempT = super.remove(index);
-        if (index == 0) {
-            super.getFirst().setPrevNode(super.getLast());
-        } else if (index == super.getSize() - 1) {
-            super.getLast().setNextNode(super.getFirst());            
+
+        if (super.getSize() > 0) {
+            if (index == 0) {
+                super.getFirst().setPrevNode(super.getLast());
+            } else if (index == super.getSize() - 1) {
+                super.getLast().setNextNode(super.getFirst());
+            }
         }
 
         return tempT;
+    }
+
+    private int getCircularIndex(int index) {
+        if (index > super.getSize() - 1) {
+            index %= super.getSize();
+        }
+        return index;
     }
 }

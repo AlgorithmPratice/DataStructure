@@ -53,19 +53,21 @@ public class ArrayList<T> {
         this.arrayList = tempObject;
     }
 
+    @SuppressWarnings("unchecked")
     public T remove(int index) {
         if(index < 0 || index >= this.arrayListSize) {
             return null;
         }
 
-        Object tempObject = this.arrayList[index];
+        T tempObject = (T)this.arrayList[index];
         for (int i = index; i < this.arrayListSize; i++) {
             this.arrayList[i] = this.arrayList[i+1];
         }
         this.arrayListSize--;
-        return (T)tempObject;
+        return tempObject;
     }
 
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         if(index < 0 || index >= this.arrayListSize) {
             return null;
@@ -94,17 +96,4 @@ public class ArrayList<T> {
         output += this.arrayList[this.arrayListSize - 1].toString() + "]";
         return output;
     }
-
-    // public static void main(String[] args) {
-    //     ArrayList<String> arrayList = new ArrayList<>();
-    //     arrayList.add("hi");
-    //     arrayList.add("there");
-    //     System.out.println(arrayList.size());
-    //     System.out.println(arrayList.toString());
-    //     System.out.println(arrayList.get(1));
-    //     arrayList.update("change",1);
-    //     System.out.println(arrayList.toString());
-    //     System.out.println(arrayList.remove(0));
-    //     System.out.println(arrayList.toString());
-    // }
 }
