@@ -16,7 +16,7 @@ public class Tree_200126_KSH {
 		if(root==null) {
 			if(data.equals("."))root=new Node(data);
 			if(left.equals(".")) root.left=new Node(left);
-			if(right.equals(".")) root.left=new Node(right);
+			if(right.equals(".")) root.right=new Node(right);
 		}else search(root, data, left, right);
 	}
 	public void search(Node root,String data,String left, String right) {
